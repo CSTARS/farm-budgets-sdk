@@ -9,6 +9,10 @@
   "author": "Justin Merz <jrmerz@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "superagent": "^1.6.1"
+    "deep-diff": "^0.3.3",
+    "extend": "^3.0.0",
+    "node-uuid": "^1.4.7",
+    "superagent": "^1.6.1",
+    "ucum.js": "0.0.2"
   }
 }

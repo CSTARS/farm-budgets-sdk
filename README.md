@@ -165,7 +165,8 @@ Returns list of budget objects.
 
 #### budgets.uses(materialId, callback)
 
-Get a list of budgets that use the given material.
+Get a list of budgets that use the given material.  This is good to check BEFORE
+you delete a material.
 
 - **materialId**: unique material id.
 
@@ -198,7 +199,7 @@ Returns {succes:true} on success.
 
 Delete budget with given unique id.
 
-- **id**: unique material id
+- **id**: unique budget id
 
 Returns {succes:true} on success.
 
