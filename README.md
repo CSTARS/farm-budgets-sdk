@@ -34,7 +34,7 @@ Or a more complete example.  This will load your user data, preform an empty sea
 load the first budget returned, then display it's total.
 
 ```JavaScript
-var sdk = require('../index')(require('/etc/farm-budgets-sdk/setup.json'));
+var sdk = require('farm-budgets-sdk')(require('/etc/farm-budgets-sdk/setup.json'));
 
 sdk.login(function(resp){
   console.log('Hello, '+sdk.me().display_name);
