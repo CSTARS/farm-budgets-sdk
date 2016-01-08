@@ -1,6 +1,5 @@
 var sdk = require('../index')(require('/etc/farm-budgets-sdk/setup.json'));
 
-
 sdk.login(function(resp){
   console.log('Hello, '+sdk.me().display_name);
 
@@ -12,6 +11,5 @@ sdk.login(function(resp){
 
 function onBudgetLoad(budget) {
   console.log(budget.getName());
-
   console.log(sdk.getTotal());
 }

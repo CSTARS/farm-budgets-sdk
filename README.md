@@ -30,6 +30,28 @@ sdk.authorities.list(function(resp){
 });
 ```
 
+Or a more complete example.  This will load your user data, preform an empty search,
+load the first budget returned, then display it's total.
+
+```JavaScript
+var sdk = require('../index')(require('/etc/farm-budgets-sdk/setup.json'));
+
+sdk.login(function(resp){
+  console.log('Hello, '+sdk.me().display_name);
+
+  sdk.budgets.search({}, function(resp){
+    console.log('Loading: '+resp.results[0].id+' '+resp.results[0].name);
+    sdk.load(resp.results[0].id, onBudgetLoad);
+  });
+});
+
+// load() returns a Budget class, not raw data object
+function onBudgetLoad(budget) {
+  console.log(budget.getName());
+  console.log(sdk.getTotal());
+}
+```
+
 # API
 
 All callback functions return a single response object.  If an error occurred
