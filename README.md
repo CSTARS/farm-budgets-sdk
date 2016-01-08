@@ -130,7 +130,7 @@ Returns list or material objects.
 
 #### materials.save(material, callback)
 
-Create material
+Create or update material
 
 - **material**: material object.  See schema below.  If id is provided an update
 will be preformed, otherwise insert.
@@ -145,6 +145,62 @@ Delete material with given unique id.
 
 Returns {succes:true} on success.
 
+## Budgets
+
+Calls to view, create, edit, search and delete budget.
+
+#### budgets.get(id, callback)
+
+Get a budget by unique budget id.
+
+- **id**: unique budget id.
+
+Returns budget object.  See schema below.
+
+#### budgets.contributedTo(callback)
+
+Get a list of budgets you have contributed to.
+
+Returns list of budget objects.
+
+#### budgets.uses(materialId, callback)
+
+Get a list of budgets that use the given material.
+
+- **materialId**: unique material id.
+
+Returns list of budget objects.
+
+#### budgets.search(query, callback)
+
+Search for budgets.  All [MongoDB queries](https://docs.mongodb.org/manual/tutorial/query-documents/) are allowed.
+
+- **query**: query object. see here, all fields optional, but object is required:
+
+```JavaScript
+{
+  query : {} // mongodb query
+  start : 0, // start index
+  stop : 10, // stop index
+}
+```
+
+#### budgets.save(budget, callback)
+
+Create or update budget.
+
+- **budget**: budget object.  See schema below.  If id is provided an update
+will be preformed, otherwise insert.
+
+Returns {succes:true} on success.
+
+#### budgets.delete(id, callback)
+
+Delete budget with given unique id.
+
+- **id**: unique material id
+
+Returns {succes:true} on success.
 
 # Schemas
 
@@ -203,7 +259,7 @@ A material that requires other materials
   materials : {
     _material_name_ : {
       amount : 'number', // amount of require material
-      units : 'string' // amount units of require materials
+      units : 'string' // amount units of require materials. Needs to follow UCUM format.  See more below
     }
   },
 
@@ -211,13 +267,67 @@ A material that requires other materials
   // material that are only used by this complex material and cannot be shared
   // with other materials.
   // This objects properties should be the name of the simple materials
-  unique : _material_name_ : {
-    price : 'number', // price of simple material
-    units : 'string' // units of price for simple material
+  unique : {
+    _material_name_ : {
+      price : 'number', // price of simple material
+      units : 'string' // units of price for simple material. Needs to follow UCUM format.  See more below
+    }
   }
 }
 ```
 
-## Units
+## Budget
+To help readability the budget object has been split into two parts.
+
+#### Base Budget Object
+
+```JavaScript
+{
+  authority : 'string', // name of authority (required)
+  locality : 'array', // array of string locations for authority (required)
+  name : 'string', // budget name
+  id : 'string', // unique budget id
+  materialIds : 'array', // array of material ids currently associated with this budget
+  reference : 'string', // unique budget id of reference budget.  If provided, the operations
+  // property should be omited.
+  commodity : 'string', // name of crop
+
+  // information about the farm
+  farm : {
+    name : 'string', // farm name
+    size : 'string', // farm size
+    units : 'string' // units for farm size.  Needs to follow UCUM format.  See more below
+  },
+
+  operations : [] // array of operation objects, see more below
+}
+```
+
+#### Budget Operations Object
+```JavaScript
+{
+  name : 'string', // operation name
+  units : 'string', // units for operation. Needs to follow UCUM format.  See more below
+
+  // array of objects.  
+  schedule : [{
+    date : 'string', // start date.  Format:  YYYY-MM-DD
+    length : 'string', // length of operation
+    units : 'string' // length of operation units.  Options: 'year', 'month' or 'day'
+  }],
+
+  // array of require materials for operation
+  materials : [{
+    amount : 'number', // amount of material required
+    id : 'string', // unique material id being used
+    name : 'string', // name of material
+    note : 'string', // note about material usage
+    units : 'string' // units for material amount. Needs to follow UCUM format.  See more below
+  }]
+}
+```
+
+
+# Units
 
 All units MUST be provided in UCUM format [http://unitsofmeasure.org/ucum.html](http://unitsofmeasure.org/ucum.html)
