@@ -4,6 +4,7 @@ NodeJS SDK for the farm-budgets-app.  farmbudgets.org
  - [Quick Start](#quick-start)
  - [API](#api)
  - [Schemas](#schemas)
+ - [Classes](#classes)
  - [Units](#units)
 
 # Quick Start
@@ -232,6 +233,8 @@ Returns {succes:true} on success.
 
 # Schemas
 
+Below are the 'raw' object schemas use and returned by the API requests.
+
 ## Authority
 
 ```JavaScript
@@ -354,6 +357,83 @@ To help readability the budget object has been split into two parts.
   }]
 }
 ```
+
+# Classes
+
+Helper classes that add some sugar to working with farm-budget-app objects.
+
+## Budget
+
+First, to create a budget class, use the SDK's load method.
+
+```JavaScript
+var sdk = require('farm-budget-sdk')({
+  // config
+});
+
+sdk.load('budget-id-i-wish-to-load', function(budget){
+  if( budget.error ) {
+    throw(new Error(budget.message));
+  }
+  // 'budget' is an instance of the budget class
+});
+```
+
+The budget class is wired into the farm budget app's calculator.  So using it's methods to update operations will automatically trigger recalc events.
+
+#### Budget.addOperation(name)
+
+Add a new operation to the budget with the given name.
+
+- **name**: String name of new operation.
+
+Returns Operation Class instance.
+
+#### Budget.getOperation(name)
+
+Get operation(s) with the given name.  Because operations can have the same name, an array will be returned.  If no name is provided, all operation instances are returned.
+
+- **name**: String name of operation(s) to retrieve.
+
+Returns array of Operation Class instances.
+
+#### Budget.getFarm()
+
+Get the farm data object.  Contains name, size and units.
+
+Returns JavaScript Object.
+
+#### Budget.setFarm(name, size, units)
+
+Set the farm information.
+
+- **name**: String name of farm.
+- **size**: Number size of farm.
+- **units**: String units of farm.
+
+#### Budget.getAuthority()
+
+Return the authority name of budget
+
+Returns authority string.
+
+#### Budget.setAuthority(authority)
+
+Set the budget authority
+
+- **authority**: String authority name.
+
+#### Budget.getLocality()
+
+Return the locality array.
+
+Returns array of strings representing the locality of the budget.
+
+#### Budget.setLocality(locality)
+
+Set the locality array.
+
+- **locality**: array of strings representing the locality of the budget
 
 
 # Units
