@@ -60,13 +60,17 @@ function onBudgetLoad(budget) {
 
 # API
 
+- [Authorities API](#authorities-api)
+- [Materials API](#materials-api)
+- [Budgets API](#budgets-api)
+
 All callback functions return a single response object.  If an error occurred
 a error = true flag will be set along with a message property.  If message = 'request error',
 there was an issue with the http call, and additional *response* property will
 be set containing the full http response object.  API errors will NOT contain the
 response object.
 
-## Authorities
+## Authorities API
 
 Calls to view, create, edit authorities.
 
@@ -112,7 +116,7 @@ remove user from authority.
 
 Returns {success:true} on success.
 
-## Materials
+## Materials API
 
 Calls to view, create, edit, search and delete materials.
 
@@ -173,7 +177,7 @@ Delete material with given unique id.
 
 Returns {succes:true} on success.
 
-## Budgets
+## Budgets API
 
 Calls to view, create, edit, search and delete budget.
 
@@ -235,7 +239,11 @@ Returns {succes:true} on success.
 
 Below are the 'raw' object schemas use and returned by the API requests.
 
-## Authority
+- [Authority Schema](#authority-schema)
+- [Material Schema](#material-schema)
+- [Budget Schema](#budget-schema)
+
+## Authority Schema
 
 ```JavaScript
 {
@@ -244,12 +252,12 @@ Below are the 'raw' object schemas use and returned by the API requests.
 }
 ```
 
-## Material
+## Material Schema
 
 There are two material schemas.  There type is determined by the **type** property.
 Material type can be 'simple' or complex
 
-#### Simple Material
+#### Simple Material Schema
 Simple or base material
 
 ```JavaScript
@@ -268,7 +276,7 @@ Simple or base material
 }
 ```
 
-#### Complex Material
+#### Complex Material Schema
 A material that requires other materials
 
 ```JavaScript
@@ -307,10 +315,10 @@ A material that requires other materials
 }
 ```
 
-## Budget
+## Budget Schema
 To help readability the budget object has been split into two parts.
 
-#### Base Budget Object
+#### Base Budget Schema
 
 ```JavaScript
 {
@@ -334,7 +342,7 @@ To help readability the budget object has been split into two parts.
 }
 ```
 
-#### Budget Operations Object
+#### Budget Operations Schema
 ```JavaScript
 {
   name : 'string', // operation name
@@ -362,7 +370,9 @@ To help readability the budget object has been split into two parts.
 
 Helper classes that add some sugar to working with farm-budget-app objects.
 
-## Budget
+- [Budget Class](budget-class)
+
+## Budget Class
 
 First, to create a budget class, use the SDK's load method.
 
