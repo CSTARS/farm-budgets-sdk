@@ -51,7 +51,7 @@ sdk.login(function(resp){
   });
 });
 
-// load() returns a Budget class, not raw data object
+// load() returns a Budget Class, not raw data object
 function onBudgetLoad(budget) {
   console.log(budget.getName());
   console.log(sdk.getTotal());
@@ -372,6 +372,7 @@ Helper classes that add some sugar to working with farm-budget-app objects.
 
 - [Budget Class](#budget-class)
 - [Operation Class](#operation-class)
+- [Material Class](#Material-class)
 
 ## Budget Class
 
@@ -494,6 +495,9 @@ Add a material to the list of budget materials to use.
 
 - **material**: Material Class of material to add.
 
+
+
+
 ## Operation Class
 
 #### Operation.schedule(startDate, length, units)
@@ -569,6 +573,62 @@ Returns the operation units.
 Set the operation units.
 
 - **units**: string name of the units.  Should be in UCUM format.  See below.
+
+## Material Class
+
+First, to create a budget class, use the SDK's createMaterial method.
+
+```JavaScript
+var sdk = require('farm-budget-sdk')({
+  // config
+});
+
+var material = sdk.createMaterial(data);
+```
+A Material Class instance is returned.  The data is optional.  If you do pass data,
+it should be in the form of the [Material Schema](#material-schema).
+
+#### Material.getName()
+
+#### Material.setName(name)
+
+#### Material.getDescription()
+
+#### Material.setDescription(description)
+
+#### Material.getUnits()
+
+#### Material.setUnits(units)
+
+#### Material.getType()
+
+#### Material.setType(type)
+
+#### Material.getPrice()
+
+#### Material.setPrice(price)
+
+#### Material.getAuthority()
+
+#### Material.setAuthority(authority)
+
+#### Material.getLocality()
+
+#### Material.setLocality(locality)
+
+#### Material.getYear()
+
+#### Material.setYear(year)
+
+#### Material.getSource()
+
+#### Material.setSource(source)
+
+#### Material.getClass()
+
+#### Material.setClass(class)
+
+#### Material.save()
 
 # Units
 
