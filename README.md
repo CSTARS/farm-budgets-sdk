@@ -371,6 +371,7 @@ To help readability the budget object has been split into two parts.
 Helper classes that add some sugar to working with farm-budget-app objects.
 
 - [Budget Class](budget-class)
+- [Operation Class](operation-class)
 
 ## Budget Class
 
@@ -397,7 +398,7 @@ Add a new operation to the budget with the given name.
 
 - **name**: String name of new operation.
 
-Returns Operation Class instance.
+Returns [Operation Class](operation-class) instance.
 
 #### Budget.getOperation(name)
 
@@ -405,7 +406,7 @@ Get operation(s) with the given name.  Because operations can have the same name
 
 - **name**: String name of operation(s) to retrieve.
 
-Returns array of Operation Class instances.
+Returns array of [Operation Class](operation-class) instances.
 
 #### Budget.getFarm()
 
@@ -445,6 +446,82 @@ Set the locality array.
 
 - **locality**: array of strings representing the locality of the budget
 
+#### Budget.getName()
+
+Get the name of the budget.
+
+Return string name of budget.
+
+#### Budget.setName(name)
+
+Set the name of the budget.
+
+- **name**: String name of the budget
+
+#### Budget.getId()
+
+Get the budgets unique id.
+
+Return string budget id
+
+#### Budget.setReference(budgetId)
+
+Set this budget to be a reference budget.  Reference budgets will not use their own operations, rather the operations of the reference.  If you wish to undo this operation, simply pass null instead of a budget id.
+
+- **budgetId**: String unique budget id to set reference to.
+
+#### Budget.isReference()
+
+Is this budget a reference budget.
+
+Returns boolean, true if reference, false otherwise.
+
+#### Budget.getCommodity()
+
+Return the name of the commodity for this budget
+
+Returns string commodity name
+
+#### Budget.setCommodity(commodity)
+
+Set the commodity of the budget.
+
+- **commodity**: String name of the commodity
+
+#### Budget.addMaterial(material)
+
+Add a material to the list of budget materials to use.
+
+- **material**: Material Class of material to add.
+
+## Operation Class
+
+#### Operation.schedule(startDate, length, units)
+
+Schedule the operation.
+
+- **startDate**: String or Date Object.  If string, should be in format YYYY-MM-DD.
+- **length**: number length of operation
+- **units**: units for length.  Options: 'year', 'month' or 'day'
+
+#### Operation.unschedule(schedule)
+
+Remove a schedule event.  Schedule should either be a numeric index or the schedule event object itself.  Both can be discovered using the Operation.getSchedule() method.
+
+- **schedule**: index of scheduled event to remove or scheduled event object instance to remove.
+
+#### Operation.getSchedule()
+
+Get array of schedule event objects.
+
+Returns array of schedule event objects with the follow structure:
+```JavaScript
+{
+  name : "",
+  length : "",
+  units : ""
+}
+```
 
 # Units
 
