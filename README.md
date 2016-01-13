@@ -372,7 +372,7 @@ Helper classes that add some sugar to working with farm-budget-app objects.
 
 - [Budget Class](#budget-class)
 - [Operation Class](#operation-class)
-- [Material Class](#Material-class)
+- [Material Class](#material-class)
 
 ## Budget Class
 
@@ -576,7 +576,7 @@ Set the operation units.
 
 ## Material Class
 
-First, to create a budget class, use the SDK's createMaterial method.
+First, to create a Material Class, use the SDK's createMaterial method.
 
 ```JavaScript
 var sdk = require('farm-budget-sdk')({
