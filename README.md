@@ -370,8 +370,8 @@ To help readability the budget object has been split into two parts.
 
 Helper classes that add some sugar to working with farm-budget-app objects.
 
-- [Budget Class](budget-class)
-- [Operation Class](operation-class)
+- [Budget Class](#budget-class)
+- [Operation Class](#operation-class)
 
 ## Budget Class
 
@@ -398,7 +398,7 @@ Add a new operation to the budget with the given name.
 
 - **name**: String name of new operation.
 
-Returns [Operation Class](operation-class) instance.
+Returns [Operation Class](#operation-class) instance.
 
 #### Budget.getOperation(name)
 
@@ -406,7 +406,7 @@ Get operation(s) with the given name.  Because operations can have the same name
 
 - **name**: String name of operation(s) to retrieve.
 
-Returns array of [Operation Class](operation-class) instances.
+Returns array of [Operation Class](#operation-class) instances.
 
 #### Budget.getFarm()
 
