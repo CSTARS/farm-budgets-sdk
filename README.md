@@ -523,6 +523,53 @@ Returns array of schedule event objects with the follow structure:
 }
 ```
 
+#### Operation.addRequiredMaterial(name, amount, units)
+
+Add a required material to the operation.
+
+- **name**: String name of the material.
+- **amount**: number amount of required material.
+- **units**: string units for amount of material.
+
+#### Operation.getRequiredMaterials()
+
+Get a list of the required material objects.
+
+Returns list of required material objects with the following structure:
+```JavaScript
+{
+  name : "",
+  amount : 0,
+  units : ""
+}
+```
+
+#### Operation.removeMaterial(index)
+
+Remove a required material.  The index can be found using Operation.getRequiredMaterials() which will return the entire list of materials.
+
+- **index**: number index of material to remove.
+
+#### Operation.getName()
+
+Returns the operation name
+
+#### Operation.setName(name)
+
+Set the operation name.
+
+- **name**: string name of the operation
+
+#### Operation.getUnits()
+
+Returns the operation units.
+
+#### Operation.setUnits(units)
+
+Set the operation units.
+
+- **units**: string name of the units.  Should be in UCUM format.  See below.
+
 # Units
 
 All units MUST be provided in UCUM format [http://unitsofmeasure.org/ucum.html](http://unitsofmeasure.org/ucum.html)
