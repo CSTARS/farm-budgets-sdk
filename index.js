@@ -1,20 +1,10 @@
-var rest = require('./lib/rest');
-var logic = require('./lib/logic');
-var config = require('./lib/config');
+var sdk = require('./lib');
 
 module.exports = function(conf) {
-  config.host = conf.host;
-  config.token = conf.token;
-
-  var api = {}, key;
-
-  for( key in rest ) {
-    api[key] = rest[key];
+  if( conf ) {
+    sdk.config.host = conf.host;
+    sdk.config.token = conf.token;
   }
 
-  for( key in logic ) {
-    api[key] = logic[key];
-  }
-
-  return api;
+  return sdk;
 };
