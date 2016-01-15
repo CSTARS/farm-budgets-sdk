@@ -3,7 +3,7 @@ NodeJS SDK for the farm-budgets-app.  farmbudgets.org
 
  - [Quick Start](#quick-start)
  - [Methods](#methods)
- - [API](#api)
+ - [Rest API](#rest-api)
  - [Schemas](#schemas)
  - [Classes](#classes)
  - [Units](#units)
@@ -116,7 +116,7 @@ to the material controller (ie available to the budget).  You must call
 budget.addMaterial(material) to add the material to the budget. See the
 [Budget Class](#budget-class) for more information.
 
-# API
+# Rest API
 
 - [Authorities API](#authorities-api)
 - [Materials API](#materials-api)
