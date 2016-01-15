@@ -113,14 +113,14 @@ describe('Material Controller', function() {
     assert.equal(complex4.price, 4);
   });
 
-  it('not fire update event with noEvent flag', function(){
+  it('not fire update event with noEvent flag', function(done){
     controllers.material.reset();
 
     controllers.material.on('material-update', function(response){
       assert.equal(true, false);
     });
 
-    setTimeout(function(response){
+    setTimeout(function(){
       assert.equal(true, true);
       done();
     }, 100);
