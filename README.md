@@ -2,6 +2,7 @@
 NodeJS SDK for the farm-budgets-app.  farmbudgets.org
 
  - [Quick Start](#quick-start)
+ - [Methods](#methods)
  - [API](#api)
  - [Schemas](#schemas)
  - [Classes](#classes)
@@ -47,7 +48,7 @@ sdk.login(function(resp){
 
   sdk.budgets.search({}, function(resp){
     console.log('Loading: '+resp.results[0].id+' '+resp.results[0].name);
-    sdk.load(resp.results[0].id, onBudgetLoad);
+    sdk.loadBudget(resp.results[0].id, onBudgetLoad);
   });
 });
 
@@ -57,6 +58,63 @@ function onBudgetLoad(budget) {
   console.log(sdk.getTotal());
 }
 ```
+
+# Methods
+
+The following are the top level methods for the SDK.
+
+#### getBudget()
+
+Returns the currently loaded [Budget Class](#budget-class).
+
+#### newBudget() / reset()
+
+Create a new (empty) budget.  Resets the state of all controllers.  Returns the currently
+created and loaded empty [Budget Class](#budget-class).  reset() does the same thing.
+
+#### loadBudget(id, callback)
+
+Load a budget with the given **id** string.  Callback response is either an error
+object or a new [Budget Class](#budget-class).
+
+#### setBudget(data)
+
+Set budget initializes the controllers and returns a new [Budget Class](#budget-class)
+instance.  The **data** parameter should match the response format of the API call
+budgets.load(id):
+
+```
+{
+  budget : {
+    // raw budget schema object
+  },
+  materials : [
+    // list of raw material schema objects
+  ]
+}
+```
+
+#### login(callback)
+
+Set your user data.  This should be called before using the SDK as it is used to
+locally check access to objects (speeds up error detection) as well as set default
+authority values.
+
+#### me()
+
+Returns your user account object.
+
+#### getTotal()
+
+Returns the current total of the budget.
+
+#### createMaterial(data)
+
+Returns a new [Material Class](#material-class) instance.  If the **data** object is
+not provided, the material instance will be empty.  This material will NOT be registered
+to the material controller (ie available to the budget).  You must call
+budget.addMaterial(material) to add the material to the budget. See the
+[Budget Class](#budget-class) for more information.
 
 # API
 
@@ -633,3 +691,27 @@ it should be in the form of the [Material Schema](#material-schema).
 # Units
 
 All units MUST be provided in UCUM format [http://unitsofmeasure.org/ucum.html](http://unitsofmeasure.org/ucum.html)
+
+## Helpers
+
+The SDK provides some helper methods for units.
+
+#### units.cleanDollars
+
+Currently the default (and only supported currency) is us$.  This, however, is not
+supported by ucum.  This function will remove us$ and replace it with the base 1
+so the unit can be parsed by ucum.
+
+TODO:  In the future, this should be made to cleanCurrency and support several currencies.
+
+#### units.ucumParse(units)
+
+This is a simple wrapper method around ucum lib's ucum.parse(units) method.  This
+method can be expensive and calling it hundreds/thousands of times can really slow
+things down.  units.ucumParse(units) adds a simple in memory cache of all calls
+made to the method, returning the cached value if available.
+
+#### units.getLabel(baseUnit)
+
+The SDK has a (slowly) growing list of labels for ucum units.  This method returns
+a 'nice' label if available.  Example: ucum's '[acr_us]' would return 'acre'.
