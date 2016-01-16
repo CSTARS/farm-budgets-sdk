@@ -13,7 +13,7 @@ NodeJS SDK for the farm-budgets-app.  farmbudgets.org
 Install sdk
 
 ```bash
-npm install CSTARS/farm-budgets-sdk
+npm install farm-budgets-sdk
 ```
 
 Visit [farmbudgets.org](http://farmbudgets.org), create an account if you don't
