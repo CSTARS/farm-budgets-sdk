@@ -276,6 +276,10 @@ Search for budgets.  All [MongoDB queries](https://docs.mongodb.org/manual/tutor
 }
 ```
 
+#### budgets.getData()
+
+Returns current [budget raw data schema](#budget-schema).
+
 #### budgets.save(budget, callback)
 
 Create or update budget.
