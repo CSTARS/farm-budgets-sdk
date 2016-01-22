@@ -39,9 +39,14 @@ describe('Material Controller', function() {
 
     assert.equal(response.success, true);
 
-    response = controllers.material.add(data.simple1);
-    assert.equal(response.error, true);
-    assert.equal(response.code, 2);
+    var error = false;
+    try {
+      controllers.material.add(data.simple1);
+    } catch(e) {
+      error = true;
+    }
+
+    assert.equal(error, true);
   });
 
   it('should allow updates', function(){
@@ -85,8 +90,10 @@ describe('Material Controller', function() {
   it('should complain with missing required material', function(){
     controllers.material.reset();
     controllers.material.add(data.complex1);
-    var m = controllers.material.get(data.complex1.name);
-    assert.equal(m.recalcErrors.length, 2);
+    var e = controllers.material.getErrors(data.complex1.name);
+
+    assert.equal(Object.keys(e.materials).length, 2);
+    assert.equal(e.materials.labor[0], 'Material is not in budget');
   });
 
   it('should not allow cyclical complex material dependencies', function(){
@@ -96,8 +103,13 @@ describe('Material Controller', function() {
     controllers.material.add(data.complex3);
     controllers.material.add(data.complex4);
 
-    assert.equal(data.complex3.recalcErrors.length, 1);
-    assert.equal(data.complex4.recalcErrors.length, 1);
+    var e1 = controllers.material.getErrors(data.complex3.name);
+    var e2 = controllers.material.getErrors(data.complex4.name);
+
+    assert.equal(Object.keys(e1.materials).length, 1);
+    assert.equal(Object.keys(e2.materials).length, 1);
+    assert.equal(e1.materials[data.complex4.name][0], 'Has child errors');
+    assert.equal(e2.materials[data.complex3.name][0], 'Recusive materials found, ignoring');
   });
 
   it('should let you fix last test cyclical errors', function(){
@@ -108,8 +120,11 @@ describe('Material Controller', function() {
     delete complex3.materials[complex4.name];
     controllers.material.add(complex3, {replace: true});
 
-    assert.equal(complex3.recalcErrors.length, 0);
-    assert.equal(complex4.recalcErrors.length, 0);
+    var e1 = controllers.material.getErrors(data.complex3.name);
+    var e2 = controllers.material.getErrors(data.complex4.name);
+
+    assert.equal(e1, null);
+    assert.equal(e2, null);
     assert.equal(complex4.price, 4);
   });
 
@@ -154,14 +169,24 @@ describe('Material Controller', function() {
     var resp = controllers.material.add(data.simple1);
     assert.equal(resp.success, true);
 
-    resp = controllers.material.remove('foo');
-    assert.equal(resp.error, true);
+    var error = false;
+    try {
+      controllers.material.remove('foo');
+    } catch(e) {
+      error = true;
+    }
+    assert.equal(error, true);
 
     resp = controllers.material.remove(data.simple1.name);
     assert.equal(resp.success, true);
 
-    resp = controllers.material.get(data.simple1.name);
-    assert.equal(resp.error, true);
+    error = false;
+    try {
+      controllers.material.remove(data.simple1.name);
+    } catch(e) {
+      error = true;
+    }
+    assert.equal(error, true);
   });
 
   it('should let you rename a material', function(){
@@ -177,10 +202,20 @@ describe('Material Controller', function() {
     resp = controllers.material.add(data.simple1, {rename: orgName});
     assert.equal(resp.success, true);
 
-    resp = controllers.material.get(newName);
-    assert.equal(resp.error, undefined);
+    var error = false;
+    try {
+      controllers.material.get(newName);
+    } catch(e) {
+      error = true;
+    }
+    assert.equal(error, false);
 
-    resp = controllers.material.get(orgName);
-    assert.equal(resp.error, true);
+    error = false;
+    try {
+      controllers.material.get(orgName);
+    } catch(e) {
+      error = true;
+    }
+    assert.equal(error, true);
   });
 });
