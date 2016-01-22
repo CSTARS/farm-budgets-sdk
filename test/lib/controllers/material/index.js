@@ -39,14 +39,9 @@ describe('Material Controller', function() {
 
     assert.equal(response.success, true);
 
-    var error = false;
-    try {
+    assert.throws(function(){
       controllers.material.add(data.simple1);
-    } catch(e) {
-      error = true;
-    }
-
-    assert.equal(error, true);
+    }, Error);
   });
 
   it('should allow updates', function(){
@@ -169,24 +164,16 @@ describe('Material Controller', function() {
     var resp = controllers.material.add(data.simple1);
     assert.equal(resp.success, true);
 
-    var error = false;
-    try {
+    assert.throws(function(){
       controllers.material.remove('foo');
-    } catch(e) {
-      error = true;
-    }
-    assert.equal(error, true);
+    }, Error);
 
     resp = controllers.material.remove(data.simple1.name);
     assert.equal(resp.success, true);
 
-    error = false;
-    try {
+    assert.throws(function(){
       controllers.material.remove(data.simple1.name);
-    } catch(e) {
-      error = true;
-    }
-    assert.equal(error, true);
+    }, Error);
   });
 
   it('should let you rename a material', function(){
@@ -202,20 +189,10 @@ describe('Material Controller', function() {
     resp = controllers.material.add(data.simple1, {rename: orgName});
     assert.equal(resp.success, true);
 
-    var error = false;
-    try {
-      controllers.material.get(newName);
-    } catch(e) {
-      error = true;
-    }
-    assert.equal(error, false);
+    controllers.material.get(newName);
 
-    error = false;
-    try {
+    assert.throws(function(){
       controllers.material.get(orgName);
-    } catch(e) {
-      error = true;
-    }
-    assert.equal(error, true);
+    }, Error);
   });
 });

@@ -27,8 +27,10 @@ describe('Operation Controller', function() {
     assert.equal(resp.success, true);
 
     controllers.operation.reset();
-    resp = controllers.operation.get(data.sample1.name);
-    assert.equal(resp.error, true);
+
+    assert.throws(function(){
+      controllers.operation.get(data.sample1.name);
+    }, Error);
   });
 
   it('returns error if operation already exists', function(){
@@ -36,8 +38,9 @@ describe('Operation Controller', function() {
     var resp = controllers.operation.add(data.sample1);
     assert.equal(resp.success, true);
 
-    resp = controllers.operation.add(data.sample1.name);
-    assert.equal(resp.error, true);
+    assert.throws(function(){
+      controllers.operation.add(data.sample1.name);
+    }, Error);
   });
 
   it('can remove operation', function(){
@@ -45,11 +48,11 @@ describe('Operation Controller', function() {
     var resp = controllers.operation.add(data.sample1);
     assert.equal(resp.success, true);
 
-    resp = controllers.operation.remove(data.sample1.name);
-    assert.equal(resp.success, true);
+    controllers.operation.remove(data.sample1.name);
 
-    resp = controllers.operation.get(data.sample1.name);
-    assert.equal(resp.error, true);
+    assert.throws(function(){
+      controllers.operation.get(data.sample1.name);
+    }, Error);
   });
 
   it('can replace operation', function(){
