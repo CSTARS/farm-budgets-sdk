@@ -4,18 +4,18 @@ module.exports = function() {
 simple1 : {
   name : 'labor',
   price : 1,
-  units : 'h'
+  units : 'us$/h'
 },
 
 simple2 : {
   name : 'fuel',
   price : 3.75,
-  units : '[gal_us]'
+  units : 'us$/[gal_us]'
 },
 
 complex1 : {
   name : 'truck',
-  units : 'h',
+  units : 'us$/h',
   materials : {
     labor : {
       amount : 1,
@@ -30,7 +30,7 @@ complex1 : {
 
 complex2 : {
   name : 'truck and trailer',
-  units : 'h',
+  units : 'us$/h',
   materials : {
     truck : {
       amount : 1,
@@ -45,7 +45,7 @@ complex2 : {
 
 complex3 : {
   name : 'cycle badness',
-  units : 'h',
+  units : 'us$/h',
   materials : {
     'labor' : {
       amount : 4,
@@ -60,7 +60,7 @@ complex3 : {
 
 complex4 : {
   name : 'cycle badness2',
-  units : 'h',
+  units : 'us$/h',
   materials : {
     'cycle badness' : {
       amount : 1,

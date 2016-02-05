@@ -7,7 +7,7 @@ return {
     id : '12345',
     testing : true,
     description : 'this is a test',
-    units : 'h',
+    units : 'us$/h',
     price : 2.0,
     authority : 'test',
     locality : ['davis', 'california'],

@@ -8,11 +8,15 @@ describe('Budget Class', function() {
   var data;
 
   before(function(next){
+
+
     // login user (set user data)
     sdk.login(function(resp){
       if( resp.error ) {
         throw(Error(resp.message));
       }
+
+      sdk.controllers.reset();
 
       // clear old testing data
       sdk.admin.clearTesting(function(resp){
@@ -32,9 +36,9 @@ describe('Budget Class', function() {
   it('create a empty budget class with newBudget()', function(){
     var budget = sdk.newBudget();
 
-    assert.equal(budget.getName(), undefined);
-    assert.notEqual(budget.getId(), undefined);
-    assert(budget.getId().length > 0);
+    assert.equal(budget.getName(), '', 'Name is not empty');
+    assert.notEqual(budget.getId(), '', 'Id is empty');
+    assert(budget.getId().length > 0, 'Id string length is not greater than 0');
   });
 
   it('populate budget class with setBudget()', function(){

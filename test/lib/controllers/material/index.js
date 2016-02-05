@@ -103,7 +103,7 @@ describe('Material Controller', function() {
 
     assert.equal(Object.keys(e1.materials).length, 1);
     assert.equal(Object.keys(e2.materials).length, 1);
-    assert.equal(e1.materials[data.complex4.name][0], 'Has child errors');
+    assert.equal(e1.materials[data.complex4.name][0], 'Required material has errors');
     assert.equal(e2.materials[data.complex3.name][0], 'Recusive materials found, ignoring');
   });
 

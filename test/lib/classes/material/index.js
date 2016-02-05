@@ -31,8 +31,8 @@ describe('Material Class', function() {
   it('create a empty material class', function(){
     var material = sdk.createMaterial();
 
-    assert.equal(material.getName(), undefined);
-    assert.notEqual(material.getId(), undefined);
+    assert.equal(material.getName(), '');
+    assert.notEqual(material.getId(), '');
     assert(material.getId().length > 0);
   });
 
