@@ -1,6 +1,6 @@
 {
   "name": "farm-budgets-sdk",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "scriptable sdk for the farm budgets app",
   "main": "index.js",
   "scripts": {
